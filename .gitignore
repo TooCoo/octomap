@@ -27,3 +27,4 @@ Makefile
 *.bt
 *.ot
 *.graph
+octomap/\.vscode/

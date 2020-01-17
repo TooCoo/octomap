@@ -13,3 +13,10 @@ As far as I can tell the current version of octomap uses
 The octomap_msgs use a serialization to send the octomap.
 
 I've also forked octomap - mapping and server which are the ros things, I think those are actully what I want to be changing.
+
+## Where to start
+There is an example which uses color.
+
+- ColorOcTree.h
+- ColorOcTree.cpp
+- convert_octree.cpp

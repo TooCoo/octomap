@@ -17,6 +17,9 @@ if(BUILD_TESTING)
   ADD_EXECUTABLE(test_color_tree test_color_tree.cpp)
   TARGET_LINK_LIBRARIES(test_color_tree octomap)
 
+  ADD_EXECUTABLE(test_color_plus_tree test_color_plus_tree.cpp)
+  TARGET_LINK_LIBRARIES(test_color_plus_tree octomap)
+
   ADD_EXECUTABLE(color_tree_histogram color_tree_histogram.cpp)
   TARGET_LINK_LIBRARIES(color_tree_histogram octomap)
 

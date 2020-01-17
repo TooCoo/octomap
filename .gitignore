@@ -28,3 +28,7 @@ Makefile
 *.ot
 *.graph
 octomap/\.vscode/
+
+octomap/\.idea/
+
+octomap/cmake-build-debug/

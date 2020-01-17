@@ -34,6 +34,7 @@
 #include <octomap/AbstractOcTree.h>
 #include <octomap/OcTree.h>
 #include <octomap/ColorOcTree.h>
+#include <octomap/ColorPlusOcTree.h>
 #include <fstream>
 #include <iostream>
 #include <string.h>

@@ -52,6 +52,10 @@ namespace octomap {
         return s;
     }
 
+    void ColorPlusOcTreeNode::updateColorChildren() {
+        color = getAverageChildColor();
+    }
+
     ColorPlusOcTreeNode::Color ColorPlusOcTreeNode::getAverageChildColor() const {
         int mr = 0;
         int mg = 0;
@@ -119,15 +123,10 @@ namespace octomap {
         }
     }
 
-
-    void ColorPlusOcTreeNode::updateLabelChildren() {
-        label = getAverageChildLabel();
-    }
-
     // tree implementation  --------------------------------------
     ColorPlusOcTree::ColorPlusOcTree(double in_resolution)
             : OccupancyOcTreeBase<ColorPlusOcTreeNode>(in_resolution) {
-        colorOcTreeMemberInit.ensureLinking();
+        colorPlusOcTreeMemberInit.ensureLinking();
     };
 
     ColorPlusOcTreeNode* ColorPlusOcTree::setNodeColor(const OcTreeKey& key,
@@ -212,14 +211,14 @@ namespace octomap {
     }
 
     // TODO: check this, averaging list labels obviously does not work like this.
-    ColorPlusOcTreeNode* ColorPlusOcTree::averageNodeList(const OcTreeKey& key,
+    ColorPlusOcTreeNode* ColorPlusOcTree::averageNodeLabel(const OcTreeKey& key,
                                                            uint8_t r,
                                                            uint8_t g,
                                                            uint8_t b) {
         ColorPlusOcTreeNode* n = search(key);
         if (n != 0) {
             if (n->isLabelSet()) {
-                ColorPlusOcTreeNode::Label prev_label = n->getList();
+                ColorPlusOcTreeNode::Label prev_label = n->getLabel();
                 n->setLabel((prev_label.r + r)/2, (prev_label.g + g)/2, (prev_label.b + b)/2);
             }
             else {
@@ -272,6 +271,7 @@ namespace octomap {
             }
             node->updateOccupancyChildren();
             node->updateColorChildren();
+            node->updateLabelChildren();
         }
     }
 
@@ -325,6 +325,9 @@ namespace octomap {
         return out << '(' << (unsigned int)c.r << ' ' << (unsigned int)c.g << ' ' << (unsigned int)c.b << ')';
     }
 
+    std::ostream& operator<<(std::ostream& out, ColorPlusOcTreeNode::Label const& l) {
+        return out << '(' << (unsigned int)l.r << ' ' << (unsigned int)l.g << ' ' << (unsigned int)l.b << ')';
+    }
 
     ColorPlusOcTree::StaticMemberInitializer ColorPlusOcTree::colorPlusOcTreeMemberInit;
 

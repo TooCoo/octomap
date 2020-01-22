@@ -96,7 +96,9 @@ namespace octomap {
         }
 
         inline Color getColor() const { return color; }
+
         inline void  setColor(Color c) {this->color = c; }
+
         inline void  setColor(uint8_t r, uint8_t g, uint8_t b) {
             this->color = Color(r,g,b);
         }
@@ -110,7 +112,9 @@ namespace octomap {
 
         // TODO : still fairly colory
         inline Label getLabel() const { return label; }
+
         inline void  setLabel(Label l) {this->label = l; }
+
         inline void  setLabel(uint8_t r, uint8_t g, uint8_t b) {
             this->label = Label(r,g,b);
         }
@@ -124,10 +128,12 @@ namespace octomap {
 
         void updateColorChildren();
 
+        void updateLabelChildren();
+
 
         ColorPlusOcTreeNode::Color getAverageChildColor() const;
 
-        ColorPlusOcTreeNode::Color getAverageChildLabel() const;
+        ColorPlusOcTreeNode::Label getAverageChildLabel() const;
 
         // file I/O
         std::istream& readData(std::istream &s);
@@ -278,6 +284,8 @@ namespace octomap {
     //! user friendly output in format (r g b)
     // TODO : What happens here? I need to also write a label output for this
     std::ostream& operator<<(std::ostream& out, ColorPlusOcTreeNode::Color const& c);
+
+    std::ostream& operator<<(std::ostream& out, ColorPlusOcTreeNode::Label const& l);
 
 } // end namespace
 

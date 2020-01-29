@@ -66,16 +66,26 @@ namespace octomap {
         // TODO : This still is pretty much a color, I want an ID (int8_t)
         class Label {
         public:
-            Label() : r(255), g(255), b(255) {}
-            Label(uint8_t _r, uint8_t _g, uint8_t _b)
-                    : r(_r), g(_g), b(_b) {}
+            //Label() : label[10] {}
+            Label(float_t _prior){
+                for (int i = 0; i < 10; i++)
+                {
+                    label[i] = _prior;
+                    // TODO: normalise pdf (label)
+                }
+            }
             inline bool operator== (const Label &other) const {
+                // TODO write an equivalency
+                // I image that this can be done by treating label as a vector and finding the
+                // euclidean distance between cell state.
+                // ||p(a)-p(b)|| < threshold
                 return (r==other.r && g==other.g && b==other.b);
             }
+            // TODO: also write this
             inline bool operator!= (const Label &other) const {
                 return (r!=other.r || g!=other.g || b!=other.b);
             }
-            uint8_t r, g, b;
+            float label[10];
         };
 
     public:
@@ -236,7 +246,7 @@ namespace octomap {
             return averageNodeLabel(key,r,g,b);
         }
 
-        // integrate color measurement at given key or coordinate. Average with previous color
+        // integrate label measurement at given key or coordinate. Average with previous color
         ColorPlusOcTreeNode* integrateNodeLabel(const OcTreeKey& key, uint8_t r,
                                                 uint8_t g, uint8_t b);
 
